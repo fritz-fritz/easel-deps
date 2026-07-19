@@ -30,9 +30,12 @@ jobs:
           $libheif = $v.libheif.version
           $tag = $v.vcpkg.tag
           $features = ($v.libheif.vcpkg_features -join ",")
+          # actions/cache keys cannot contain commas
+          $featuresKey = ($v.libheif.vcpkg_features -join "+")
           "libheif=$libheif" | Out-File -FilePath $env:GITHUB_OUTPUT -Append -Encoding utf8
           "vcpkg_tag=$tag" | Out-File -FilePath $env:GITHUB_OUTPUT -Append -Encoding utf8
           "features=$features" | Out-File -FilePath $env:GITHUB_OUTPUT -Append -Encoding utf8
+          "features_key=$featuresKey" | Out-File -FilePath $env:GITHUB_OUTPUT -Append -Encoding utf8
           $asset = "libheif-msvc-$env:TRIPLET-$libheif.zip"
           "asset=$asset" | Out-File -FilePath $env:GITHUB_OUTPUT -Append -Encoding utf8
           Write-Host "libheif=$libheif vcpkg=$tag features=$features asset=$asset"
@@ -44,7 +47,7 @@ jobs:
             C:/vcpkg/downloads
             C:/vcpkg/buildtrees
             C:/vcpkg/packages
-          key: vcpkg-${{ env.TRIPLET }}-${{ steps.ver.outputs.vcpkg_tag }}-${{ steps.ver.outputs.libheif }}-${{ steps.ver.outputs.features }}
+          key: vcpkg-${{ env.TRIPLET }}-${{ steps.ver.outputs.vcpkg_tag }}-${{ steps.ver.outputs.libheif }}-${{ steps.ver.outputs.features_key }}
 
       - name: Bootstrap vcpkg
         shell: pwsh
