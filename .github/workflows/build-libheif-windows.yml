@@ -108,14 +108,17 @@ jobs:
           } else {
             $tag = "libheif-v$ver"
           }
+          $triplet = $env:TRIPLET
+          $features = "${{ steps.ver.outputs.features }}"
+          $vcpkgTag = "${{ steps.ver.outputs.vcpkg_tag }}"
           $notes = @"
-          Prebuilt MSVC libheif $ver for Easel (`$env:TRIPLET`).
+Prebuilt MSVC libheif $ver for Easel ($triplet).
 
-          Features: ${{ steps.ver.outputs.features }}
-          vcpkg tag: ${{ steps.ver.outputs.vcpkg_tag }}
+Features: $features
+vcpkg tag: $vcpkgTag
 
-          Extract and set ``VCPKG_ROOT`` to the extract root before building Easel.
-          "@
+Extract and set ``VCPKG_ROOT`` to the extract root before building Easel.
+"@
           # Create or update the release, then upload (clobber) the asset.
           $existing = gh release view $tag 2>$null
           if ($LASTEXITCODE -ne 0) {
