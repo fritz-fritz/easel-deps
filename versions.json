@@ -1,15 +1,19 @@
 {
   "libheif": {
-    "version": "1.23.1",
+    "version": "1.23.4",
     "vcpkg_port": "libheif",
-    "vcpkg_features": ["core", "aom", "hevc"],
+    "vcpkg_features": [
+      "core",
+      "aom",
+      "hevc"
+    ],
     "triplet": "x64-windows-static-md"
   },
   "vcpkg": {
     "git": "https://github.com/microsoft/vcpkg",
-    "ref": "33e5269bbfc24fb252bc48a3e624c8193afdccce",
+    "ref": "0635f447edcc25f50645afade4e91a229a35fcdc",
     "ref_kind": "commit",
-    "comment": "First microsoft/vcpkg commit whose libheif port is 1.23.1 (no monthly tag yet). Prefer a dated tag once one includes this port."
+    "comment": "microsoft/vcpkg commit whose libheif port is 1.23.4 (no monthly tag with this port yet)."
   },
   "asset": {
     "name_template": "libheif-msvc-{triplet}-{libheif_version}.zip",
